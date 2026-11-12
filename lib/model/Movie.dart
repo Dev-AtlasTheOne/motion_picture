@@ -1,18 +1,30 @@
 class Movie {
-int? id;
-int release_date;
-int price;
-int stock_number;
-String title;
-String diretor;
-String description;
+  int? id;
+  int price;
+  int stockNumber;
+  String title;
 
-Movie({this.release_date=0, this.price=0, this.stock_number=0, this.title='', this.diretor='', this.description=''});
+  Movie({this.price = 0, this.stockNumber = 0, this.title = ''});
 
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> mapa = {
+      'title': title,
+      'price': price,
+      'stockNumber': stockNumber,
+    };
 
+    if (id != null) {
+      mapa['id'] = id;
+    }
 
+    return mapa;
+  }
 
-
-
-
+  factory Movie.fromMap(Map<String, dynamic> mapa) {
+    return Movie(
+      title: mapa['title'],
+      price: mapa['price'],
+      stockNumber: mapa['stockNumber'],
+    );
+  }
 }
