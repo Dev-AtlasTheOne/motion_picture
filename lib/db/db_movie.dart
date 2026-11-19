@@ -1,7 +1,5 @@
-import 'dart:convert';
 import 'package:motion_picture/model/Movie.dart';
 import 'package:path/path.dart';
-import 'package:crypto/crypto.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DbMovie {
