@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:motion_picture/view/movie_screen.dart';
+import 'package:motion_picture/view/settings.dart';
+import '../components/appBar.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
@@ -6,13 +9,13 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Bar(),
-      body: corpo(),
-      backgroundColor: Colors.white,
+      appBar: Bar("M O T I O N - P I C T U R E"),
+      body: corpo(context),
+      backgroundColor: Theme.of(context).colorScheme.surface,
     );
   }
 
-  corpo() {
+  corpo(context) {
     return Center(
       child: SingleChildScrollView(
         child: Padding(
@@ -22,7 +25,13 @@ class MainScreen extends StatelessWidget {
             spacing: 30,
             children: [
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (context) => const MovieScreen(),
+                    ),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.red,
                   shadowColor: Colors.black,
@@ -36,7 +45,13 @@ class MainScreen extends StatelessWidget {
               ),
 
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (context) => const Settings(),
+                    ),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.red,
                   shadowColor: Colors.black,
@@ -52,19 +67,6 @@ class MainScreen extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-
-  Bar() {
-    return AppBar(
-      title: Text(
-        "M O T I O N - P I C T U R E",
-        style: TextStyle(color: Colors.white),
-      ),
-      centerTitle: true,
-      backgroundColor: Colors.red,
-      elevation: 4,
-      shadowColor: Colors.black,
     );
   }
 }

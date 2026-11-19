@@ -27,8 +27,8 @@ class DbMovie {
       CREATE TABLE Movie (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         title TEXT NOT NULL,
-        price INTEGER NOT NULL,
-        stockNumber INTEGER NOT NULL,
+        price NUMERIC NOT NULL,
+        stockNumber INTEGER NOT NULL
       )
 
       ''');
@@ -68,7 +68,7 @@ class DbMovie {
 
   static Future<Movie?> movieAuth(
     String title,
-    int price,
+    double price,
     int stockNumber,
   ) async {
     Database db = await banco();
@@ -87,7 +87,7 @@ class DbMovie {
     return Movie.fromMap(dados.first);
   }
 
-  static Future<List<Movie>> buscarTodosJogadores() async {
+  static Future<List<Movie>> searchAllMovies() async {
     Database db = await banco();
 
     List<Map<String, dynamic>> dados = await db.query(
@@ -96,6 +96,23 @@ class DbMovie {
     );
 
     return dados.map(Movie.fromMap).toList();
+  }
+
+  static Future<Movie?> getMovieById(int id) async {
+    Database db = await banco();
+
+    List<Map<String, dynamic>> dados = await db.query(
+      'Movie',
+      where: 'id = ?',
+      whereArgs: [id],
+      limit: 1,
+    );
+
+    if (dados.isEmpty) {
+      return null;
+    }
+
+    return Movie.fromMap(dados.first);
   }
 
   static Future<void> updateMovie(Movie movie) async {
